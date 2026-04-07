@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %>
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+    <%- include('partials/header-app') %>
+
+    <!-- Create Auction Form -->
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <div class="glass-card auth-card" style="padding: 2.5rem;">
+                    <h2 class="auth-title">Create New Auction</h2>
+                    <p class="auth-subtitle">List your item and let the bidding begin</p>
+
+                    <div id="success-message" class="alert alert-success" style="display: none;" role="alert"></div>
+                    <div id="create-auction-error" class="alert alert-danger" style="display: none;" role="alert"></div>
+
+                    <form id="create-auction-form" enctype="multipart/form-data" novalidate>
+                        <div class="mb-3">
+                            <label for="title" class="form-label-custom">Auction Title *</label>
+                            <input type="text" id="title" name="title" class="form-input-custom"
+                                placeholder="e.g. Vintage Rolex Watch" required maxlength="120" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="description" class="form-label-custom">Description *</label>
+                            <textarea id="description" name="description" class="form-input-custom" rows="4"
+                                placeholder="Describe your item in detail..." required maxlength="2000"></textarea>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label for="startingPrice" class="form-label-custom">Starting Price ($) *</label>
+                                <input type="number" id="startingPrice" name="startingPrice" class="form-input-custom" placeholder="0.00"
+                                    min="0" step="0.01" required />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="endTime" class="form-label-custom">End Date & Time *</label>
+                                <input type="datetime-local" id="endTime" name="endTime" class="form-input-custom" required />
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="image" class="form-label-custom">Product Image</label>
+                            <input type="file" id="image" name="image"
+                                class="form-input-custom" accept="image/*" style="padding: 0.6rem 1rem;" />
+                            <small class="d-block mt-1" style="color: var(--text-muted);">Accepts JPG, PNG, WEBP. Max 5MB.</small>
+                        </div>
+
+                        <button type="submit" id="submit-btn" class="btn-primary-custom w-100">Create Auction</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>
+    <script src="/js/create-auction.js"></script>
+</body>
+</html>

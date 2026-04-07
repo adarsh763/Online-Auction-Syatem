@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %>
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+    <%- include('partials/header-app') %>
+
+    <!-- Header + Filters -->
+    <div class="container pt-5 pb-4">
+        <span class="story-badge mb-3 d-inline-block">CATALOG</span>
+        <h2 class="hero-title" style="margin-bottom: .5rem;">Browse All Auctions</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Discover live auctions and place your bids in real time.</p>
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+            <div class="filter-group">
+                <button class="filter-btn active" data-filter="">All</button>
+                <button class="filter-btn" data-filter="active">Live</button>
+                <button class="filter-btn" data-filter="completed">Ended</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auction Grid -->
+    <div class="container pb-5">
+        <div id="loading-spinner" class="text-center py-5" style="display: flex; justify-content: center;">
+            <div class="spinner-border" style="color: var(--accent);" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+        <div id="empty-state" class="text-center py-5" style="display: none;">
+            <h4 style="color: var(--text-secondary); font-family: var(--font-serif);">No auctions found</h4>
+            <p style="color: var(--text-muted);">Check back soon or create your own!</p>
+        </div>
+        <div id="auction-grid" class="row g-4"></div>
+        <div class="d-flex justify-content-center align-items-center gap-3 mt-4">
+            <button id="prev-page" class="btn-pagination" disabled>← Prev</button>
+            <span id="page-info" style="color: var(--text-secondary); font-size: 0.9rem;">Page 1</span>
+            <button id="next-page" class="btn-pagination">Next →</button>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>
+    <script src="/js/main.js"></script>
+</body>
+</html>

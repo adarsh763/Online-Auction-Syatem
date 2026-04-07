@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %>
+    <link rel="stylesheet" href="/css/style.css" />
+    <style>
+        .auth-container {
+            min-height: calc(100vh - 70px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .auth-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 3rem;
+            width: 100%;
+            max-width: 480px;
+        }
+        .auth-card h2 {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        /* ... remaining styles from login.html ... */
+        .auth-card p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+        .form-label {
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+        .form-control {
+            background: var(--bg-warm);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-family: var(--font-sans);
+        }
+        .form-control:focus {
+            background: var(--bg-warm);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+            color: var(--text-primary);
+        }
+        .btn-auth {
+            background: var(--text-primary);
+            color: var(--text-light);
+            border: none;
+            padding: 0.875rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            width: 100%;
+            margin-top: 1.5rem;
+            transition: all 0.3s ease;
+            font-family: var(--font-sans);
+        }
+        .btn-auth:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(26, 26, 46, 0.2);
+            background: #2a2a3e;
+        }
+        .auth-links {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--text-muted);
+        }
+        .auth-links a {
+            color: var(--accent-dark);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .auth-links a:hover {
+            color: var(--accent);
+        }
+        .error-message {
+            color: var(--danger);
+            background: rgba(220, 38, 38, 0.06);
+            border: 1px solid rgba(220, 38, 38, 0.15);
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            display: none;
+            font-size: 0.9rem;
+        }
+        /* OTP Modal */
+        .modal-content.warm-theme {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            border-radius: var(--radius);
+        }
+        .modal-header.warm-theme {
+            border-bottom: 1px solid var(--border);
+        }
+        .modal-header.warm-theme h5 {
+            font-family: var(--font-serif);
+        }
+        .modal-footer.warm-theme {
+            border-top: 1px solid var(--border);
+        }
+    </style>
+</head>
+<body>
+    <%- include('partials/header-app') %>
+
+    <!-- Login Form -->
+    <div class="auth-container">
+        <div class="auth-card">
+            <h2>Welcome Back</h2>
+            <p>Sign in to your account</p>
+
+            <div id="login-form-error" class="error-message"></div>
+
+            <form id="login-form">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" required placeholder="john@example.com">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn-auth">Sign In</button>
+            </form>
+
+            <div class="auth-links">
+                Don't have an account? <a href="/register">Create one</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- OTP Verification Modal -->
+    <div class="modal fade" id="otpModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content warm-theme">
+                <div class="modal-header warm-theme">
+                    <h5 class="modal-title">Verify Email Address</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-warning mb-3" style="border-radius: 8px;">
+                        Your email address is not yet verified.
+                    </div>
+                    <p style="color: var(--text-muted);">We've sent a 6-digit code to <strong id="verify-email-display" style="color: var(--text-primary);"></strong>.</p>
+                    <div id="otp-error" class="error-message"></div>
+                    <form id="otp-form">
+                        <div class="mb-3">
+                            <label for="otp" class="form-label">Verification Code (OTP)</label>
+                            <input type="text" class="form-control text-center fs-4" id="otp" required placeholder="123456" maxlength="6" pattern="[0-9]{6}" title="Please enter a 6-digit number">
+                        </div>
+                        <button type="submit" class="btn-auth">Verify Code</button>
+                    </form>
+                    <div class="text-center mt-3">
+                        <button id="resend-otp-btn" class="btn btn-link p-0" style="color: var(--accent-dark); text-decoration: none; font-weight: 600;">Resend Code</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (isLoggedIn()) {
+                window.location.href = '/dashboard';
+                return;
+            }
+
+            const loginForm = document.getElementById('login-form');
+            const otpForm = document.getElementById('otp-form');
+            const resendBtn = document.getElementById('resend-otp-btn');
+            
+            let currentEmail = '';
+            let otpModalInstance = null;
+
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                hideFormError('login-form');
+                
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const btn = loginForm.querySelector('button');
+                const originalText = btn.textContent;
+                
+                btn.disabled = true;
+                btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Signing In...';
+
+                try {
+                    const res = await loginUser(email, password);
+                    saveAuth(res.data.token, res.data.user);
+                    window.location.href = '/dashboard';
+                } catch (err) {
+                    if (err.message && err.message.toLowerCase().includes('not verified')) {
+                        currentEmail = email;
+                        try {
+                            await resendOTP(currentEmail);
+                            const otpModalEl = document.getElementById('otpModal');
+                            otpModalInstance = new bootstrap.Modal(otpModalEl);
+                            document.getElementById('verify-email-display').textContent = email;
+                            otpModalInstance.show();
+                        } catch (resendErr) {
+                            showFormError('login-form', 'Failed to send new OTP. Please try again later.');
+                        }
+                    } else {
+                        showFormError('login-form', err.message || 'Login failed');
+                    }
+                } finally {
+                    btn.disabled = false;
+                    btn.textContent = originalText;
+                }
+            });
+
+            otpForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                hideFormError('otp');
+                
+                const otp = document.getElementById('otp').value;
+                const btn = otpForm.querySelector('button');
+                const originalText = btn.textContent;
+                
+                btn.disabled = true;
+                btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Verifying...';
+
+                try {
+                    await verifyOTP(currentEmail, otp);
+                    otpModalInstance.hide();
+                    alert('Email verified successfully! You can now log in.');
+                    loginForm.querySelector('button').click();
+                } catch (err) {
+                    showFormError('otp', err.message || 'Verification failed');
+                } finally {
+                    btn.disabled = false;
+                    btn.textContent = originalText;
+                }
+            });
+
+            resendBtn.addEventListener('click', async () => {
+                const originalText = resendBtn.textContent;
+                resendBtn.disabled = true;
+                resendBtn.textContent = 'Sending...';
+                
+                try {
+                    await resendOTP(currentEmail);
+                    alert('A new OTP has been sent to your email.');
+                } catch (err) {
+                    alert(err.message || 'Failed to resend OTP');
+                } finally {
+                    resendBtn.disabled = false;
+                    resendBtn.textContent = originalText;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

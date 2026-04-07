@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('partials/head') %>
+        <link rel="stylesheet" href="/css/landing.css" />
+</head>
+
+<body>
+
+    <%- include('partials/header') %>
+
+        <section class="hero-globe-section" id="hero">
+            <div class="hero-globe-inner">
+                <div class="hero-globe-content">
+                    <div class="hero-globe-badge">
+                        <span class="badge-dot"></span>
+                        Live Global Auctions
+                    </div>
+                    <h1 class="hero-globe-title">
+                        Discover. Bid.<br />
+                        <span class="hero-gradient-text">Win Extraordinary.</span>
+                    </h1>
+                    <p class="hero-globe-subtitle">
+                        A global marketplace connecting collectors worldwide. Bid on premium items in real-time —
+                        from rare watches to priceless art. The world's finest, at your fingertips.
+                    </p>
+                    <div class="hero-globe-buttons">
+                        <a href="/auctions" class="btn-globe-primary">
+                            Browse Auctions <span class="btn-arrow">→</span>
+                        </a>
+                        <a href="/dashboard" class="btn-globe-secondary">
+                            Your Dashboard
+                        </a>
+                    </div>
+                    <div class="hero-globe-stats">
+                        <div class="hero-stat-item">
+                            <span class="hero-stat-number" id="hero-stat-live">12</span>
+                            <span class="hero-stat-label">Live Auctions</span>
+                        </div>
+                        <div class="hero-stat-divider"></div>
+                        <div class="hero-stat-item">
+                            <span class="hero-stat-number">28K+</span>
+                            <span class="hero-stat-label">Active Bidders</span>
+                        </div>
+                        <div class="hero-stat-divider"></div>
+                        <div class="hero-stat-item">
+                            <span class="hero-stat-number">$4.2M</span>
+                            <span class="hero-stat-label">Total Volume</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-globe-visual" id="globe-container"></div>
+            </div>
+        </section>
+        <section class="carousel-section" id="featured">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="section-tag">Featured Items</span>
+                    <h2 class="section-title">Currently Up for Bid</h2>
+                    <div class="story-divider"></div>
+                    <p class="section-subtitle">Handpicked premium items with live bidding. Act fast — these won't last
+                        long.</p>
+                </div>
+
+                <!-- Luxury Bento Grid -->
+                <div class="featured-bento-grid" id="featured-grid">
+                    <!-- Dynamically populated by landing.js -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════
+       HOW IT WORKS
+       ═══════════════════════════════════════════════ -->
+        <section class="how-section" id="how-it-works">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="section-tag">How It Works</span>
+                    <h2 class="section-title">Simple, Fast, Transparent</h2>
+                    <div class="story-divider"></div>
+                    <p class="section-subtitle">Get started in seconds — no sign-up required.</p>
+                </div>
+
+                <div class="steps-track">
+                    <div class="step-card reveal">
+                        <div class="step-icon">👤</div>
+                        <div class="step-number">Step 01</div>
+                        <h4>Enter as Guest</h4>
+                        <p>No account needed. Start browsing instantly as a guest.</p>
+                    </div>
+                    <div class="step-card reveal">
+                        <div class="step-icon">🔍</div>
+                        <div class="step-number">Step 02</div>
+                        <h4>Browse Auctions</h4>
+                        <p>Explore live auctions with real-time prices and timers.</p>
+                    </div>
+                    <div class="step-card reveal">
+                        <div class="step-icon">💰</div>
+                        <div class="step-number">Step 03</div>
+                        <h4>Place Your Bid</h4>
+                        <p>Enter your amount and compete against bidders live.</p>
+                    </div>
+                    <div class="step-card reveal">
+                        <div class="step-icon">🏆</div>
+                        <div class="step-number">Step 04</div>
+                        <h4>Win the Auction</h4>
+                        <p>Highest bidder wins when the timer hits zero.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════
+       LIVE ACTIVITY TICKER
+       ═══════════════════════════════════════════════ -->
+        <section class="activity-section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="section-tag">Live Activity</span>
+                    <h2 class="section-title">What's Happening Now</h2>
+                    <div class="story-divider"></div>
+                </div>
+            </div>
+            <div class="activity-ticker" id="activity-ticker">
+                <!-- Ticker content... could also be server-side rendered -->
+                <div class="activity-card">
+                    <span class="activity-emoji">🔥</span>
+                    <div>
+                        <div class="activity-text">Rahul bid ₹12,000 on Swiss Watch</div>
+                        <div class="activity-time">2 seconds ago</div>
+                    </div>
+                </div>
+                <!-- etc... -->
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════
+       QUOTE / PARALLAX
+       ═══════════════════════════════════════════════ -->
+        <section class="parallax-section">
+            <div class="parallax-bg"></div>
+            <div class="parallax-overlay"></div>
+            <div class="parallax-content reveal">
+                <h2>"Every great find begins<br />with a single bid."</h2>
+                <p>Explore our curated collection and discover items waiting to find their new home.</p>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════
+       STATS
+       ═══════════════════════════════════════════════ -->
+        <section class="stats-section" id="stats">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="section-tag">Platform Stats</span>
+                    <h2 class="section-title">Trusted by Thousands</h2>
+                    <div class="story-divider"></div>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-box reveal">
+                        <div class="stat-number" data-count="1240" data-suffix="+">0</div>
+                        <div class="stat-label">Active Auctions</div>
+                    </div>
+                    <div class="stat-box reveal">
+                        <div class="stat-number" data-count="28500" data-suffix="+">0</div>
+                        <div class="stat-label">Total Bidders</div>
+                    </div>
+                    <div class="stat-box reveal">
+                        <div class="stat-number" data-count="4800000" data-suffix="">0</div>
+                        <div class="stat-label">Total Value Traded ($)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <%- include('partials/footer') %>
+
+            <!-- Three.js (Page-specific for Home) -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+            <script src="/js/globe.js"></script>
+            <script src="/js/landing.js?v=3"></script>
+</body>
+
+</html>
